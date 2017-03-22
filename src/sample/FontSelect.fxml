@@ -10,6 +10,6 @@
       <Button fx:id="apply" blendMode="HARD_LIGHT" layoutX="102.0" layoutY="112.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: black;" text="Apply" textAlignment="CENTER" />
       <ComboBox fx:id="selectorFont" layoutX="14.0" layoutY="64.0" prefWidth="150.0" promptText="Choose A Font...." style="-fx-background-color: transparent; -fx-border-color: black;" />
       <Label fx:id="previewArea" layoutX="31.0" layoutY="14.0" prefHeight="27.0" prefWidth="212.0" text="aabbccdd AABBCCDD 123456789" />
-      <ComboBox fx:id="sizeBox" layoutX="181.0" layoutY="64.0" prefHeight="25.0" prefWidth="62.0" promptText="..." style="-fx-background-color: transparent; -fx-border-color: black;" />
+      <ComboBox fx:id="sizeBox" editable="true" layoutX="181.0" layoutY="64.0" prefHeight="25.0" prefWidth="62.0" promptText="?" style="-fx-background-color: transparent; -fx-border-color: black;" />
    </children>
 </Pane>

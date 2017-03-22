@@ -13,10 +13,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import javax.swing.*;
 
 import static sample.Controller.*;
 
@@ -45,8 +48,8 @@ public class fontController {
 
         @FXML
         private Button apply;
-    @FXML
-    private ComboBox<?> sizeBox;
+        @FXML
+        public ComboBox<?> sizeBox;
 
         @SuppressWarnings("unchecked")
         @FXML
@@ -68,12 +71,17 @@ public class fontController {
             //populate the sizes;
             final String[] standardSizes={"8","9","10","11",
             "12","14","16","18","20","22","24","26","28","36","48","72"};
-            ObservableList sizesList=FXCollections.observableArrayList(new ArrayList<String>(){});
+            ObservableList sizesList=FXCollections.observableArrayList(new ArrayList<Label>(){});
             for(int x=0;x<standardSizes.length;x++){
-                sizesList.add(standardSizes[x]);
+                Label sizeLabel=new Label(standardSizes[x]);
+                sizeLabel.setStyle("-fx-text-fill: black");
+                sizesList.add(sizeLabel);
 
 
             }
+            sizeBox.setItems(sizesList);
+
+
 
 
 
@@ -92,26 +100,35 @@ public class fontController {
             ObservableList oFontList=FXCollections.observableArrayList(FontList);
             selectorFont.setItems(oFontList);
             apply.setOnAction((t)-> {
-                boolean isValid=true;
-                final int defaultSize=12;
-                int size=defaultSize;
-                try{
-                  size=Integer.parseInt(sizeBox.getValue().toString());
-                }catch(Exception e){
-                    size=defaultSize;
-                    isValid=false;
-                    System.err.println(e.getLocalizedMessage());
+                if(sizeBox.getValue()==null || selectorFont.getValue()==null){
+                    JOptionPane.showMessageDialog(null,"One of the Fields is left Empty!","Please Review",JOptionPane.ERROR_MESSAGE);
                 }
-                if(isValid) {
-                    String selectedFont = selectorFont.getValue().toString();
-                    StringTokenizer st = new StringTokenizer(selectedFont, "'");
-                    st.nextToken();
-                    String font = st.nextToken();
-                    document.setFont(Font.font(font, size));
-                    Controller.fontWindowOpen = false;
-                    fontStage.hide();
-                }
+                else {
+                    boolean isValid = true;
+                    final int defaultSize = 12;
+                    int size = defaultSize;
+                    try {
+                        String selectedSize = sizeBox.getValue().toString();
+                        StringTokenizer st = new StringTokenizer(selectedSize, "'");
+                        st.nextToken();
+                        size = Integer.parseInt(st.nextToken());
 
+
+                    } catch (Exception e) {
+                        size = defaultSize;
+                        isValid = false;
+                        System.err.println(e.getLocalizedMessage());
+                    }
+                    if (isValid) {
+                        String selectedFont = selectorFont.getValue().toString();
+                        StringTokenizer st = new StringTokenizer(selectedFont, "'");
+                        st.nextToken();
+                        String font = st.nextToken();
+                        document.setFont(Font.font(font, size));
+                        Controller.fontWindowOpen = false;
+                        fontStage.hide();
+                    }
+                }
             });
 
 

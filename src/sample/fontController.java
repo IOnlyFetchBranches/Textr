@@ -18,9 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import static sample.Controller.document;
-import static sample.Controller.fontStage;
-import static sample.Controller.fontWindowOpen;
+import static sample.Controller.*;
 
 public class fontController {
         public static List<String> fonts=Font.getFamilies();
@@ -57,15 +55,11 @@ public class fontController {
             assert previewArea != null : "fx:id=\"previewArea\" was not injected: check your FXML file 'FontSelect.fxml'.";
             assert apply != null : "fx:id=\"apply\" was not injected: check your FXML file 'FontSelect.fxml'.";
             apply.setOnAction((t)->{
-                if(document.getSelectedText() !=null || !document.getSelectedText().equals("")){
-                   Text selected=new Text(document.getSelectedText());
-                   selected.setFont(Font.font((String)selectorFont.getValue()));
-                   document.replaceSelection(selected.getText());
 
-                }
-                else{
-                    document.setFont(Font.font((String)selectorFont.getValue()));
-                }
+
+                String selectedFont=((ComboBox)selectorFont.getValue()).toString();
+                StringTokenizer st=new StringTokenizer(selectedFont,"'");
+                System.out.println( selectorFont.getValue().toString());
 
 
 

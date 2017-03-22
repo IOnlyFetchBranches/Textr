@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="151.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fontController">
    <children>
-      <CheckBox fx:id="boldBox" layoutX="31.0" layoutY="88.0" mnemonicParsing="false" text="Bold" />
-      <CheckBox fx:id="italicBox" layoutX="105.0" layoutY="88.0" mnemonicParsing="false" text="Italic" />
-      <CheckBox fx:id="underlineBox" layoutX="167.0" layoutY="88.0" mnemonicParsing="false" text="Underline" />
       <Button fx:id="apply" blendMode="HARD_LIGHT" layoutX="102.0" layoutY="112.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: black;" text="Apply" textAlignment="CENTER" />
-      <ComboBox fx:id="selectorFont" blendMode="DARKEN" layoutX="51.0" layoutY="52.0" prefWidth="150.0" />
+      <ComboBox fx:id="selectorFont" blendMode="DARKEN" layoutX="51.0" layoutY="52.0" prefWidth="150.0" promptText="Choose A Font...." />
       <Label fx:id="previewArea" layoutX="31.0" layoutY="14.0" prefHeight="27.0" prefWidth="212.0" text="aabbccdd AABBCCDD 123456789" />
    </children>
 </Pane>

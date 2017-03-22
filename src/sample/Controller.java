@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 public class Controller {
     private boolean isSaved=true;
     public static boolean fontWindowOpen=false;
-
+    public static boolean hasText=false;
 
     public static Stage fontStage;
 
@@ -77,6 +77,12 @@ public class Controller {
             document.setOnKeyTyped((t) -> {
                 println("Text Changed");
                 isSaved = false;
+                if(document.getText() != null){
+                    hasText=true;
+                }
+                else{
+                    hasText=false;
+                }
             });
         }catch(Exception e){
             println(e.getMessage());
@@ -88,7 +94,9 @@ public class Controller {
 
 
 
-
+        wrap.setOnAction(t->{
+            document.setWrapText(!document.isWrapText());
+        });
 
         fontSelect.setOnAction((t)->{
             if(!fontWindowOpen) {

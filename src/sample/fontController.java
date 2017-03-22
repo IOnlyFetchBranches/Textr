@@ -69,12 +69,14 @@ public class fontController {
 
 
             //populate the sizes;
+            String value;
             final String[] standardSizes={"8","9","10","11",
             "12","14","16","18","20","22","24","26","28","36","48","72"};
             ObservableList sizesList=FXCollections.observableArrayList(new ArrayList<Label>(){});
             for(int x=0;x<standardSizes.length;x++){
                 Label sizeLabel=new Label(standardSizes[x]);
                 sizeLabel.setStyle("-fx-text-fill: black");
+
                 sizesList.add(sizeLabel);
 
 
@@ -108,10 +110,23 @@ public class fontController {
                     final int defaultSize = 12;
                     int size = defaultSize;
                     try {
-                        String selectedSize = sizeBox.getValue().toString();
-                        StringTokenizer st = new StringTokenizer(selectedSize, "'");
-                        st.nextToken();
-                        size = Integer.parseInt(st.nextToken());
+                        if(sizeBox.getValue().toString().contains("'")) {
+                            String selectedSize = sizeBox.getValue().toString();
+                            StringTokenizer st = new StringTokenizer(selectedSize, "'");
+                            st.nextToken();
+                            size = Integer.parseInt(st.nextToken());
+                        }
+                        else{
+                            for(int x=0;x<sizeBox.getValue().toString().length();x++){
+                                char[] test=sizeBox.getValue().toString().toCharArray();
+                                for(int y=0;y<test.length;y++){
+                                    if(!Character.isDigit(test[y])){
+                                        throw new Exception("Not A Digit");
+                                    }
+
+                                }
+                            }
+                        }
 
 
                     } catch (Exception e) {

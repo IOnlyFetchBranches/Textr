@@ -45,7 +45,10 @@ public class fontController {
 
         @FXML
         private Button apply;
+    @FXML
+    private ComboBox<?> sizeBox;
 
+        @SuppressWarnings("unchecked")
         @FXML
         void initialize() {
             assert selectorFont != null : "fx:id=\"selectorFont\" was not injected: check your FXML file 'FontSelect.fxml'.";
@@ -54,39 +57,65 @@ public class fontController {
             assert underlineBox != null : "fx:id=\"underlineBox\" was not injected: check your FXML file 'FontSelect.fxml'.";
             assert previewArea != null : "fx:id=\"previewArea\" was not injected: check your FXML file 'FontSelect.fxml'.";
             assert apply != null : "fx:id=\"apply\" was not injected: check your FXML file 'FontSelect.fxml'.";
-            apply.setOnAction((t)->{
-
-
-                String selectedFont=((ComboBox)selectorFont.getValue()).toString();
-                StringTokenizer st=new StringTokenizer(selectedFont,"'");
-                System.out.println( selectorFont.getValue().toString());
-
-
-
-                Controller.fontWindowOpen=false;
-                fontStage.hide();
-
-            });
 
 
 
 
+            ArrayList<Label> FontList = new ArrayList<>();
 
-            ArrayList<Label> FontList=new ArrayList<>();
 
-            for(int x=0;x<fonts.size();x++){
-                Label fLabel=new Label(fonts.get(x));
-                fLabel.setOnMouseEntered((t)->{
-                    final String name=fLabel.getText();
+
+            //populate the sizes;
+            final String[] standardSizes={"8","9","10","11",
+            "12","14","16","18","20","22","24","26","28","36","48","72"};
+            ObservableList sizesList=FXCollections.observableArrayList(new ArrayList<String>(){});
+            for(int x=0;x<standardSizes.length;x++){
+                sizesList.add(standardSizes[x]);
+
+
+            }
+
+
+
+            //populate the fonts
+            for (int x = 0; x < fonts.size(); x++) {
+                Label fLabel = new Label(fonts.get(x));
+                fLabel.setStyle("-fx-text-fill: black");
+                fLabel.setOnMouseEntered((t) -> {
+                    final String name = fLabel.getText();
                     previewArea.setFont(Font.font(name));
                 });
                 FontList.add(fLabel); //stopped here, changes preview text dynamically
             }
 
+
             ObservableList oFontList=FXCollections.observableArrayList(FontList);
             selectorFont.setItems(oFontList);
+            apply.setOnAction((t)-> {
+                boolean isValid=true;
+                final int defaultSize=12;
+                int size=defaultSize;
+                try{
+                  size=Integer.parseInt(sizeBox.getValue().toString());
+                }catch(Exception e){
+                    size=defaultSize;
+                    isValid=false;
+                    System.err.println(e.getLocalizedMessage());
+                }
+                if(isValid) {
+                    String selectedFont = selectorFont.getValue().toString();
+                    StringTokenizer st = new StringTokenizer(selectedFont, "'");
+                    st.nextToken();
+                    String font = st.nextToken();
+                    document.setFont(Font.font(font, size));
+                    Controller.fontWindowOpen = false;
+                    fontStage.hide();
+                }
+
+            });
 
 
-    }
+
+        }
 
 }

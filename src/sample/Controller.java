@@ -35,7 +35,7 @@ public class Controller {
     @FXML
     private Menu helpMenu;
     @FXML
-    public static TextArea document;
+    public static TextArea document=new TextArea();
     @FXML
     private MenuItem open;
     @FXML
@@ -85,7 +85,7 @@ public class Controller {
                 }
             });
         }catch(Exception e){
-            println(e.getMessage());
+            println(e.getMessage()+" on key typed");
         }
         save.setOnAction((t)->{
             save();
